@@ -1,1 +1,3 @@
-class Servicio():
+from classTarifa import Tarifa
+
+class Servicio:
