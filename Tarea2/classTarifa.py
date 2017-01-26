@@ -1,7 +1,7 @@
 class Tarifa: 
-    def __init__(self, sem, finsem):
-        self.sem = sem
-        self.finsem = finsem
+    def __init__(self):
+        self.sem = None
+        self.finsem = None
         
     def to_s(self):
         print("Tarifa semanal: %s \nTarifa fin de semana: %s" % self.sem, self.finsem)
