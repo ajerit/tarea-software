@@ -104,5 +104,6 @@ class ClaseServicioTest(unittest.TestCase):
         servicio = [datetime(2017, 1 , 6, 9), datetime(2017, 1, 6, 9)]
         self.assertEquals(self.s.calcularPrecio(self.t, servicio), None)
 
+
 if __name__ == "__main__":
     unittest.main()
