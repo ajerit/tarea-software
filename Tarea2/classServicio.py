@@ -1,37 +1,39 @@
-import datetime
-from classTarifa import Tarifa
-
 class Servicio:
-
+    
     def calcularPrecio(self, tarifa, tiempoDeServicio):
-        tiempoDif = tiempoDeServicio[1] - tiempoDeServicio[0]
-        diasDif = tiempoDif.days
-        if (tiempoDif == 0):
-            if (tiempoDeServicio[0].weekday < 5):
-                precio = tiempoDif.hours*tarifa.sem
+        tiempoDif=tiempoDeServicio[1]-tiempoDeServicio[0]
+        diasDif=tiempoDif.days
+        if ((diasDif>7) or (tiempoDif.total_seconds()<60*15)): # Condiciones de borde
+            return None
+        
+        if (tiempoDif==0): # Estadia de un solo dia
+            if (tiempoDeServicio[0].weekday<5):
+                precio=tiempoDif.hour*tarifa.sem
             else:
-                precio = tiempoDif.hours*tarifa.finsem
+                precio=tiempoDif.hour*tarifa.finsem
         else:
-            diasSem = 0
-            diasFin = 0
-            i = diasDif
-            while (i > 0):
-                if (tiempoDeServicio[0].weekday() < 5):
-                    diasSem += 1
+            diasSem=0
+            diasFin=0
+            diasDif
+            while (diasDif>0): # Calcula el numero de dias de la semana y del fin
+                if (tiempoDeServicio[0].weekday()<5):
+                    diasSem=diasSem+1
                 else:
-                    diasFin += 1
-                i -= 1
-            if (tiempoDeServicio[0].weekday() < 5):
-                precio= (23 - tiempoDeServicio.hours)*tarifa.sem
-                diasSem -= 1
-            else:
-                precio=(23 - tiempoDeServicio.hours)*tarifa.finsem
-                diasFin -= 1
-            if (tiempoDeServicio[1].weekday() < 5):
-                precio= precio + (tiempoDeServicio[1]*tarifa.sem)
-                diasSem -= 1
-            else:
-                precio = precio + (tiempoDeServicio[1]*tarifa.finsem)
-                diasFin -= 1
-            precio = precio + (diasSem*tarifa.sem) + (diasFin*tarifa.fin)
+                    diasFin=diasFin+1
+                diasDif=diasDif-1
+            # Calculo de las horas del primer dia
+            if (tiempoDeServicio[0].weekday()<5): # Si es en la semana
+                precio=(23-tiempoDeServicio[0].hour)*tarifa.sem
+                diasSem=diasSem-1
+            else: # Si es en fin de semana
+                precio=(23-tiempoDeServicio[0].hour)*tarifa.finsem
+                diasFin=diasFin-1
+            # Calculo del ultimo dia de la semana
+            if (tiempoDeServicio[1].weekday()<5): # Si es en la semana
+                precio=precio+(tiempoDeServicio[1].hour*tarifa.sem)
+                diasSem=diasSem-1
+            else: # Si es el fin de semana
+                precio=precio+(tiempoDeServicio[1].hour*tarifa.finsem)
+                diasFin=diasFin-1
+            precio=precio+(24*diasSem*tarifa.sem)+(24*diasFin*tarifa.finsem) # Resto de las horas
         return precio
