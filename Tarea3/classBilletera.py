@@ -3,6 +3,7 @@
 
 from classRecarga import Recarga
 from classConsumo import Consumo
+from __builtin__ import False
 
 class Billetera:
     
@@ -15,12 +16,16 @@ class Billetera:
         self.registro_recargas = []
         self.saldo = 0
         
-    def saldo(self):
+    def get_saldo(self):
         return self.saldo
     
     def recargar(self, m, f, id_est):
+        if m < 0:
+            return False
+        
         r = Recarga(m, f, id_est)
         self.registro_recargas.append(r)
+        self.saldo=self.saldo+m
         
     def consumir(self, pin, m, f, id_est):
         if pin != self.pin:
