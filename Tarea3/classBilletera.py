@@ -3,7 +3,6 @@
 
 from classRecarga import Recarga
 from classConsumo import Consumo
-from sqlalchemy.sql.expression import false
 
 class Billetera:
     
