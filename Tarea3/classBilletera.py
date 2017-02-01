@@ -3,7 +3,6 @@
 
 from classRecarga import Recarga
 from classConsumo import Consumo
-from __builtin__ import False
 
 class Billetera:
     
