@@ -66,3 +66,12 @@ class TestBilletera(unittest.TestCase):
         BilleteraP.recargar(monto,fecha , id)
         BilleteraP.consumir(114,monto,fecha , id)
         self.assertEqual(10,BilleteraP.get_saldo())  
+    def test_recarga_negativa(self):
+        BilleteraP = Billetera("id15","juan","perez","24506213",111)
+        pin=111
+        monto = -10
+        fecha = datetime.datetime(2017, 1, 23,3,0)
+        id = 1
+        BilleteraP.recargar(monto,fecha , id)
+        self.assertEqual(0,BilleteraP.get_saldo())  
+    
