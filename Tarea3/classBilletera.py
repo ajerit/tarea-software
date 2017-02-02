@@ -19,9 +19,10 @@ class Billetera:
         return self.saldo
     
     def recargar(self, m, f, id_est):
-        r = Recarga(m, f, id_est)
-        self.registro_recargas.append(r)
-        self.saldo=self.saldo+m
+        if(m>0):
+            r = Recarga(m, f, id_est)
+            self.registro_recargas.append(r)
+            self.saldo=self.saldo+m
         
     def consumir(self, pin, m, f, id_est):
         if pin != self.pin:
